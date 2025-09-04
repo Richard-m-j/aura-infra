@@ -1,0 +1,23 @@
+# aura-infra/apps/open-webui-app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: open-webui-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Richard-m-j/open-webui.git
+    targetRevision: main
+    path: mykubernetes
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: open-webui-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

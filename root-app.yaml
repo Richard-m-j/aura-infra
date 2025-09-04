@@ -1,0 +1,26 @@
+# root-app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  # This is the root application that manages all other apps
+  name: root-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    # The URL of your orchestrator repository
+    repoURL: https://github.com/Richard-m-j/aura-infra.git
+    # The branch to track
+    targetRevision: main
+    # The path where the "child" application manifests are located
+    path: apps
+  destination:
+    # Deploy to the same cluster where Argo CD is running
+    server: https://kubernetes.default.svc
+    # This application's resources will be created in the 'argocd' namespace
+    namespace: argocd
+  syncPolicy:
+    # Enable automated synchronization for the root app itself
+    automated:
+      prune: true
+      selfHeal: true
