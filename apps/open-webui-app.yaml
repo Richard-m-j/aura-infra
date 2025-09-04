@@ -14,7 +14,7 @@ spec:
     path: mykubernetes
   destination:
     server: https://kubernetes.default.svc
-    namespace: open-webui-app
+    namespace: aura-app
   syncPolicy:
     automated:
       prune: true

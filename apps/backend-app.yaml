@@ -23,7 +23,7 @@ spec:
     # Deploy to the same cluster where Argo CD is running
     server: https://kubernetes.default.svc
     # The target namespace for the application workloads
-    namespace: open-webui-app
+    namespace: aura-app
   syncPolicy:
     # Enable automated synchronization
     automated:
