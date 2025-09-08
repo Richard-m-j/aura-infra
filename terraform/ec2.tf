@@ -1,5 +1,5 @@
 resource "aws_instance" "web" {
-  ami           = "ami-04f59c565deeb2199"
+  ami           = "ami-0a84ffe13366e143f"
   instance_type = "t2.large"
   key_name      = "richardnv"
   user_data     = file("../setup.sh")
