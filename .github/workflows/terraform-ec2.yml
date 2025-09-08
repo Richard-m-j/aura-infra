@@ -37,3 +37,8 @@ jobs:
       - name: Terraform Apply
         working-directory: ./terraform
         run: terraform apply -auto-approve
+
+      - name: Wait for Instance Initialization
+        run: |
+          echo "Waiting for instance to initialize..."
+          sleep 420  # Adjust based on your script's expected runtime
