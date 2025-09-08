@@ -37,6 +37,10 @@ kubectl wait --namespace ingress-nginx \
   --selector=app.kubernetes.io/component=controller \
   --timeout=180s
 
+# Patch ingress-nginx-controller service to use a specific NodePort for http
+kubectl patch service -n ingress-nginx ingress-nginx-controller --type='json' -p='[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":32000}]'
+
+
 echo "Installing ingress controller done"
 
 echo "Installing Argo CD"
@@ -44,6 +48,15 @@ echo "Installing Argo CD"
 kubectl create namespace argocd
 
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# Wait for argocd-server to be ready
+kubectl wait --namespace argocd \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/name=argocd-server \
+  --timeout=180s
+
+# Patch argocd-server service to be of type NodePort and use a specific port
+kubectl patch service -n argocd argocd-server -p '{"spec": {"type": "NodePort", "ports": [{"port": 80, "targetPort": 8080, "nodePort": 31000, "name": "http"}, {"port": 443, "targetPort": 8080, "nodePort": 31443, "name": "https"}]}}'
 
 echo "Installing Argo CD done"
 
