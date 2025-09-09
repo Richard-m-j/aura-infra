@@ -1,13 +1,8 @@
 #!/bin/bash
 set -e
 
-echo "Cloning the repository..."
-git clone https://github.com/Richard-m-j/aura-infra.git
-
-cd aura-infra
-
 sudo hostnamectl set-hostname master
- 
+
 sudo kubeadm init --cri-socket=unix:///var/run/crio/crio.sock
 # Configure kubeconfig for ubuntu user
 sudo mkdir -p /home/ubuntu/.kube
@@ -87,10 +82,10 @@ sudo -u ubuntu kubectl create ns monitoring
 
 sudo -u ubuntu helm install monitoring prometheus-community/kube-prometheus-stack \
 -n monitoring \
--f prometheus-stack.yml
+-f https://raw.githubusercontent.com/Richard-m-j/aura-infra/main/prometheus-stack.yml
 
-sleep 30 
+sleep 30
 
 echo "Installing Prometheus and Grafana done"
 
-sudo -u ubuntu kubectl apply -f root-app.yaml
+sudo -u ubuntu kubectl apply -f https://raw.githubusercontent.com/Richard-m-j/aura-infra/main/root-app.yaml
