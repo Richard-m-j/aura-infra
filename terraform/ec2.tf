@@ -1,5 +1,5 @@
 resource "aws_instance" "web" {
-  ami           = "ami-0a84ffe13366e143f"
+  ami           = "ami-04f59c565deeb2199"
   instance_type = "t2.large"
   key_name      = "richardnv"
   user_data = templatefile("${path.module}/setup.sh", {})
