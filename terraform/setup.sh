@@ -71,8 +71,8 @@ sleep 30
 
 echo "Installing helm done"
 
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo update
+sudo -u ubuntu helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+sudo -u ubuntu helm repo update
 
 echo "Adding Prometheus repo done"
 
