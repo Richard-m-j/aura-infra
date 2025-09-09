@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
- 
+
+echo "Cloning the repository..."
+git clone https://github.com/Richard-m-j/aura-infra.git
+
+cd aura-infra
+
 sudo hostnamectl set-hostname master
  
 sudo kubeadm init --cri-socket=unix:///var/run/crio/crio.sock
