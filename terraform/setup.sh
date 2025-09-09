@@ -49,14 +49,15 @@ sudo -u ubuntu kubectl create namespace argocd
 
 sudo -u ubuntu kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-sudo -u ubuntu # Wait for argocd-server to be ready
+# Wait for argocd-server to be ready
 sudo -u ubuntu kubectl wait --namespace argocd \
-  sudo -u ubuntu --for=condition=ready pod \
-  sudo -u ubuntu --selector=app.kubernetes.io/name=argocd-server \
-  sudo -u ubuntu --timeout=180s
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/name=argocd-server \
+  --timeout=180s
 
-sudo -u ubuntu # Patch argocd-server service to be of type NodePort and use a specific port
-sudo -u ubuntu kubectl patch service -n argocd argocd-server -p '{"spec": {"type": "NodePort", "ports": [{"port": 80, "targetPort": 8080, "nodePort": 31000, "name": "http"}, {"port": 443, "targetPort": 8080, "nodePort": 31443, "name": "https"}]}}'
+# Patch argocd-server service to be of type NodePort
+sudo -u ubuntu kubectl patch service -n argocd argocd-server \
+  -p '{"spec": {"type": "NodePort", "ports": [{"port": 80, "targetPort": 8080, "nodePort": 31000, "name": "http"}, {"port": 443, "targetPort": 8080, "nodePort": 31443, "name": "https"}]}}'
 
 echo "Installing Argo CD done"
 
