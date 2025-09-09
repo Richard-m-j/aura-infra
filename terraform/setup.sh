@@ -24,39 +24,39 @@ until sudo -u ubuntu kubectl get pods -n kube-system | grep -Ev 'STATUS|Running'
 done
 echo "Kubernetes control-plane setup complete."
 
-kubectl apply -f https://raw.githubusercontent.com/vilasvarghese/docker-k8s/refs/heads/master/yaml/hpa/components.yaml
+sudo -u ubuntu kubectl apply -f https://raw.githubusercontent.com/vilasvarghese/docker-k8s/refs/heads/master/yaml/hpa/components.yaml
 
 echo "Installing metric server done"
 
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/baremetal/deploy.yaml
+sudo -u ubuntu kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/baremetal/deploy.yaml
 
 sleep 10
 # Wait for controller to be ready
-kubectl wait --namespace ingress-nginx \
+sudo -u ubuntu kubectl wait --namespace ingress-nginx \
   --for=condition=ready pod \
   --selector=app.kubernetes.io/component=controller \
   --timeout=180s
 
 # Patch ingress-nginx-controller service to use a specific NodePort for http
-kubectl patch service -n ingress-nginx ingress-nginx-controller --type='json' -p='[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":32000}]'
+sudo -u ubuntu kubectl patch service -n ingress-nginx ingress-nginx-controller --type='json' -p='[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":32000}]'
 
 
 echo "Installing ingress controller done"
 
 echo "Installing Argo CD"
 
-kubectl create namespace argocd
+sudo -u ubuntu kubectl create namespace argocd
 
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+sudo -u ubuntu kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
-# Wait for argocd-server to be ready
-kubectl wait --namespace argocd \
-  --for=condition=ready pod \
-  --selector=app.kubernetes.io/name=argocd-server \
-  --timeout=180s
+sudo -u ubuntu # Wait for argocd-server to be ready
+sudo -u ubuntu kubectl wait --namespace argocd \
+  sudo -u ubuntu --for=condition=ready pod \
+  sudo -u ubuntu --selector=app.kubernetes.io/name=argocd-server \
+  sudo -u ubuntu --timeout=180s
 
-# Patch argocd-server service to be of type NodePort and use a specific port
-kubectl patch service -n argocd argocd-server -p '{"spec": {"type": "NodePort", "ports": [{"port": 80, "targetPort": 8080, "nodePort": 31000, "name": "http"}, {"port": 443, "targetPort": 8080, "nodePort": 31443, "name": "https"}]}}'
+sudo -u ubuntu # Patch argocd-server service to be of type NodePort and use a specific port
+sudo -u ubuntu kubectl patch service -n argocd argocd-server -p '{"spec": {"type": "NodePort", "ports": [{"port": 80, "targetPort": 8080, "nodePort": 31000, "name": "http"}, {"port": 443, "targetPort": 8080, "nodePort": 31443, "name": "https"}]}}'
 
 echo "Installing Argo CD done"
 
@@ -77,7 +77,7 @@ echo "Adding Prometheus repo done"
 
 echo "Installing Prometheus"
 
-kubectl create ns monitoring
+sudo -u ubuntu kubectl create ns monitoring
 
 helm install monitoring prometheus-community/kube-prometheus-stack \
 -n monitoring \
@@ -87,4 +87,4 @@ sleep 30
 
 echo "Installing Prometheus and Grafana done"
 
-kubectl apply -f root-app.yaml
+sudo -u ubuntu kubectl apply -f root-app.yaml
