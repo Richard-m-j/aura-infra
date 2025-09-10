@@ -5,6 +5,7 @@ resource "aws_instance" "web" {
 
   user_data = templatefile("${path.module}/setup.sh", {
     argocd_password = var.argocd_password
+    grafana_password = var.grafana_password
   })
 
   tags = {

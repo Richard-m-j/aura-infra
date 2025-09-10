@@ -100,4 +100,8 @@ sleep 30
 
 echo "Installing Prometheus and Grafana done"
 
+# Update Grafana admin password
+echo "Updating Grafana admin password"
+sudo -u ubuntu kubectl -n monitoring patch secret monitoring-grafana -p "{\"stringData\": {\"admin-password\": \"${grafana_password}\"}}"
+
 sudo -u ubuntu kubectl apply -f https://raw.githubusercontent.com/Richard-m-j/aura-infra/main/root-app.yaml

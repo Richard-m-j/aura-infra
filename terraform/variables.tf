@@ -4,6 +4,12 @@ variable "argocd_password" {
   sensitive   = true
 }
 
+variable "grafana_password" {
+  description = "The admin password for Grafana"
+  type        = string
+  sensitive   = true
+}
+
 variable "instance_configuration" {
   description = "Configuration for the EC2 instance"
   type        = object({
@@ -13,7 +19,8 @@ variable "instance_configuration" {
     name_tag      = string
   })
   default = {
-    ami           = "ami-04f59c565deeb2199"
+ 
+   ami           = "ami-04f59c565deeb2199"
     instance_type = "t2.large"
     key_name      = "richardnv"
     name_tag      = "Richard_Instance"
