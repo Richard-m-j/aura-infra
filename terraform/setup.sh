@@ -66,7 +66,7 @@ sudo apt-get install -y apache2-utils
 ARGOCD_ADMIN_PASSWORD_HASH=$(htpasswd -nb -B admin "${argocd_password}" | cut -d ":" -f 2)
 sudo -u ubuntu kubectl -n argocd patch secret argocd-secret \
   -p "{\"stringData\": { \
-    \"admin.password\": \"${ARGOCD_ADMIN_PASSWORD_HASH}\", \
+    \"admin.password\": \"$${ARGOCD_ADMIN_PASSWORD_HASH}\", \
     \"admin.passwordMtime\": \"'$(date +%FT%T%Z)'\" \
   }}"
 
