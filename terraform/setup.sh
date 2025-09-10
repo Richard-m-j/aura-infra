@@ -59,6 +59,18 @@ sudo -u ubuntu kubectl wait --namespace argocd \
 sudo -u ubuntu kubectl patch service -n argocd argocd-server \
   -p '{"spec": {"type": "NodePort", "ports": [{"port": 80, "targetPort": 8080, "nodePort": 31000, "name": "http"}, {"port": 443, "targetPort": 8080, "nodePort": 31443, "name": "https"}]}}'
 
+# Update Argo CD admin password
+echo "Updating Argo CD admin password"
+sudo apt-get update
+sudo apt-get install -y apache2-utils
+ARGOCD_ADMIN_PASSWORD_HASH=$(htpasswd -nb -B admin "${argocd_password}" | cut -d ":" -f 2)
+sudo -u ubuntu kubectl -n argocd patch secret argocd-secret \
+  -p "{\"stringData\": { \
+    \"admin.password\": \"${ARGOCD_ADMIN_PASSWORD_HASH}\", \
+    \"admin.passwordMtime\": \"'$(date +%FT%T%Z)'\" \
+  }}"
+
+
 echo "Installing Argo CD done"
 
 echo "Installing helm"

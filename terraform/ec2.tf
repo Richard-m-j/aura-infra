@@ -1,9 +1,13 @@
 resource "aws_instance" "web" {
-  ami           = "ami-04f59c565deeb2199"
-  instance_type = "t2.large"
-  key_name      = "richardnv"
-  user_data = templatefile("${path.module}/setup.sh", {})
+  ami           = var.instance_configuration.ami
+  instance_type = var.instance_configuration.instance_type
+  key_name      = var.instance_configuration.key_name
+
+  user_data = templatefile("${path.module}/setup.sh", {
+    argocd_password = var.argocd_password
+  })
+
   tags = {
-    Name = "Richard_Instance"
+    Name = var.instance_configuration.name_tag
   }
 }
