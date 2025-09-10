@@ -12,5 +12,6 @@ jobs:
 
     - name: Run setup script
       run: |
-        chmod +x setup.sh
+        chmod +x terraform/setup.sh
+        cd terraform
         ./setup.sh
