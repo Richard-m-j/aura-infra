@@ -31,4 +31,6 @@ jobs:
       pull-requests: write
     with:
       pr_number: ${{ github.event.pull_request.number }}
+      # You can change this URL to any other GGUF model
+      model_url: 'https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/main/Qwen3-4B-Instruct-2507-Q5_K_M.gguf'
     secrets: inherit
