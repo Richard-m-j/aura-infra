@@ -21,7 +21,7 @@ variable "instance_configuration" {
   default = {
  
    ami           = "ami-04f59c565deeb2199"
-    instance_type = "t2.large"
+    instance_type = "t3.large"
     key_name      = "richardnv"
     name_tag      = "Richard_Instance"
   }
