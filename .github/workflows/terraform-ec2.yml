@@ -37,3 +37,12 @@ jobs:
         id: apply
         run: terraform apply -auto-approve
         working-directory: terraform
+
+      - name: Get Instance IP
+        id: ip
+        run: |
+          echo "instance_ip=$(terraform output -raw instance_public_ip)" >> $GITHUB_OUTPUT
+        working-directory: terraform
+
+      - name: Print Instance IP
+        run: echo "The IP address of the instance is ${{ steps.ip.outputs.instance_ip }}"
