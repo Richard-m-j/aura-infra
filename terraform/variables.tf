@@ -10,12 +10,25 @@ variable "grafana_password" {
   sensitive   = true
 }
 
+variable "aws_access_key_id" {
+  description = "AWS Access Key ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "aws_secret_access_key" {
+  description = "AWS Secret Access Key"
+  type        = string
+  sensitive   = true
+}
+
 variable "instance_configuration" {
   description = "Configuration for the EC2 instance"
   type        = object({
     ami           = string
     instance_type = string
-    key_name      = string
+  
+  key_name      = string
     name_tag      = string
   })
   default = {

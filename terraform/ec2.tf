@@ -10,8 +10,10 @@ resource "aws_instance" "web" {
     }
   }
   user_data = templatefile("${path.module}/setup.sh", {
-    argocd_password = var.argocd_password
-    grafana_password = var.grafana_password
+    argocd_password      = var.argocd_password
+    grafana_password     = var.grafana_password
+    aws_access_key_id    = var.aws_access_key_id
+    aws_secret_access_key = var.aws_secret_access_key
   })
 
   tags = {

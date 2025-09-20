@@ -73,6 +73,14 @@ sudo -u ubuntu kubectl -n argocd patch secret argocd-secret \
 
 echo "Installing Argo CD done"
 
+sudo -u ubuntu kubectl create namespace aura-app
+
+echo "Creating AWS credentials secret"
+sudo -u ubuntu kubectl create secret generic aws-credentials -n aura-app \
+  --from-literal=AWS_ACCESS_KEY_ID='${aws_access_key_id}' \
+  --from-literal=AWS_SECRET_ACCESS_KEY='${aws_secret_access_key}'
+echo "AWS credentials secret created"
+
 echo "Installing helm"
 
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
