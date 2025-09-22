@@ -18,6 +18,14 @@ The infrastructure consists of a single EC2 instance that runs a Kubernetes clus
   * **NGINX Ingress Controller**: For routing external traffic to the application's services.
   * **Aura Microservices**: The backend, frontend, Ollama, Open-WebUI, and aura-k8s-chat microservices are deployed as ArgoCD applications.
 
+## Related Repositories
+
+  * **Aura K8s Chat**: [https://github.com/Richard-m-j/aura-k8s-chat](https://github.com/Richard-m-j/aura-k8s-chat)
+  * **Kube OpenWebUI Frontend**: [https://github.com/Richard-m-j/kube-open-webui-frontend](https://github.com/Richard-m-j/kube-open-webui-frontend)
+  * **Kube OpenWebUI Backend**: [https://github.com/Richard-m-j/kube-openWebUI-backend](https://github.com/Richard-m-j/kube-openWebUI-backend)
+  * **Ollama**: [https://github.com/Richard-m-j/ollama](https://github.com/Richard-m-j/ollama)
+  * **Open-WebUI**: [https://github.com/Richard-m-j/open-webui](https://github.com/Richard-m-j/open-webui)
+
 ## Getting Started
 
 To deploy the infrastructure, you will need to have an AWS account and have the AWS CLI configured with your credentials.
