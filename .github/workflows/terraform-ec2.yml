@@ -60,7 +60,7 @@ jobs:
         with:
           ref: main
       - name: Wait for application to be ready
-        run: sleep 1000
+        run: sleep 500
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.12.0
         with:
