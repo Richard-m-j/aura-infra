@@ -62,7 +62,7 @@ jobs:
         with:
           ref: main
       - name: Wait for application to be ready
-        run: sleep 1000
+        run: sleep 120
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.12.0
         with:
@@ -71,7 +71,7 @@ jobs:
           target: 'http://${{ needs.terraform.outputs.instance_ip }}:32000'
           cmd_options: '-a'
       - name: Upload DAST Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: zap-scan-report
           path: |
