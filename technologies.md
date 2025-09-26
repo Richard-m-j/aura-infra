@@ -2,7 +2,7 @@
     
 ### Aura 
 - an ai chat application with support for running LLMs on prem as well as external API
-- kubernetes, terraform, Github actions, Go, Vue.js, python, ollama
+- kubernetes, terraform, Github actions, Go, Vue.js, python, ollama, CI-CD, Prometheus, Grafana
 
 ### Code Turtle
 - AI code review github action - made custom github action
